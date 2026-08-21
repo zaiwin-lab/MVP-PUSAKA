@@ -50,7 +50,7 @@ export default function OfficerDashboard() {
       </section>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="My next actions" subtitle="Ordered by urgency — overdue first" icon={<ClipboardList size={16} />} />
             {[...buckets.overdue, ...buckets.dueToday, ...buckets.pool.filter((l) => !buckets.overdue.includes(l) && !buckets.dueToday.includes(l))].length ? (
@@ -126,7 +126,7 @@ export default function OfficerDashboard() {
           </Card>
         </div>
 
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="Today's viewings" icon={<CalendarClock size={16} />} />
             <CardBody className="space-y-3">

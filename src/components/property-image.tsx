@@ -187,13 +187,13 @@ export function PropertyImage({
       )}
 
       {archetype === 'interior' && (
-        <g transform={`translate(${(n % 26) - 13} 0)`}>
+        <g transform={`translate(${(n % 26) - 13} 0) ${n % 2 ? 'translate(400 0) scale(-1 1)' : ''}`}>
           <rect width="400" height="300" fill={p.body} />
           <rect x="0" y="0" width="400" height="196" fill={p.body} />
           <rect x="0" y="196" width="400" height="104" fill={p.bodyDark} />
           <polygon points="0,196 400,196 400,206 0,206" fill={p.roof} opacity="0.16" />
           {/* window wall */}
-          <rect x={188 + (n % 20)} y="42" width="170" height="132" rx="3" fill={`url(#${gid}-glass)`} />
+          <rect x={188 + (n % 20)} y={42 - (n % 3) * 6} width="170" height={132 + (n % 3) * 8} rx="3" fill={`url(#${gid}-glass)`} />
           <rect x={188 + (n % 20)} y="42" width="170" height="132" rx="3" fill="none" stroke={p.roof} strokeOpacity="0.35" strokeWidth="3" />
           <line x1={273 + (n % 20)} y1="42" x2={273 + (n % 20)} y2="174" stroke={p.roof} strokeOpacity="0.28" strokeWidth="3" />
           <line x1={188 + (n % 20)} y1="108" x2={358 + (n % 20)} y2="108" stroke={p.roof} strokeOpacity="0.28" strokeWidth="3" />

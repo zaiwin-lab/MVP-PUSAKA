@@ -60,7 +60,7 @@ export default function ReferrerDetailPage() {
       </section>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title={`Attributed leads (${stats.leads.length})`} subtitle="Every enquiry captured through this referral link" />
             {stats.leads.length ? (
@@ -122,7 +122,7 @@ export default function ReferrerDetailPage() {
           </Card>
         </div>
 
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="Referral link & QR" icon={<Link2 size={16} />} />
             <CardBody>

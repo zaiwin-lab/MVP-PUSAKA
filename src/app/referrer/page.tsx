@@ -98,7 +98,7 @@ export default function ReferrerDashboard() {
         </section>
 
         <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_1.4fr] lg:items-start">
-          <div className="space-y-5">
+          <div className="min-w-0 space-y-5">
             <Card>
               <CardHeader title="Your referral link & QR" subtitle="Everything you share carries your code automatically" icon={<Link2 size={16} />} />
               <CardBody>
@@ -163,7 +163,7 @@ export default function ReferrerDashboard() {
             </Card>
           </div>
 
-          <div className="space-y-5">
+          <div className="min-w-0 space-y-5">
             <Card>
               <CardHeader
                 title="Properties you can promote"

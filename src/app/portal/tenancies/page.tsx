@@ -154,7 +154,7 @@ export default function TenanciesPage() {
         subtitle={open ? `${open.code} · ${data.properties.find((p) => p.id === open.property_id)?.name}` : ''}
       >
         {open ? (
-          <div className="space-y-5">
+          <div className="min-w-0 space-y-5">
             <div className="grid grid-cols-2 gap-4 text-[13.5px]">
               {[
                 { label: 'Tenant', value: open.tenant_name },

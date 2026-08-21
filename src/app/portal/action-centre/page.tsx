@@ -43,7 +43,7 @@ export default function ActionCentrePage() {
       </section>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           {groups.map((group) =>
             group.items.length ? (
               <Card key={group.title}>

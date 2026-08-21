@@ -94,7 +94,7 @@ export default function PortalPropertyPage() {
       </Card>
 
       <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="Performance scorecard" subtitle="How this asset is performing this month" icon={<Activity size={16} />} />
             <CardBody className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -272,7 +272,7 @@ export default function PortalPropertyPage() {
         </div>
 
         {/* ----------------------------------------------------------- Sidebar */}
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card className="overflow-hidden">
             <div className="aspect-[16/10]">
               <PropertyImage seed={property.code} type={property.type} view={property.images[0]} />

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 export function Card({ className, children, as: Tag = 'div' }: { className?: string; children: React.ReactNode; as?: 'div' | 'section' | 'article' }) {
-  return <Tag className={cn('rounded-2xl border border-line bg-white shadow-card', className)}>{children}</Tag>;
+  return <Tag className={cn('min-w-0 rounded-2xl border border-line bg-white shadow-card', className)}>{children}</Tag>;
 }
 
 export function CardHeader({

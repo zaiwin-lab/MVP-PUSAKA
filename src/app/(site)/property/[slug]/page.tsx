@@ -112,7 +112,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
 
       <div className="container-page grid gap-8 py-8 lg:grid-cols-[1.55fr_1fr] lg:items-start">
         {/* -------------------------------------------------------- Main column */}
-        <div className="space-y-8">
+        <div className="min-w-0 space-y-8">
           <PropertyGallery property={property} />
 
           <div>
@@ -251,7 +251,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
         </div>
 
         {/* ----------------------------------------------------------- Sidebar */}
-        <aside className="space-y-5 lg:sticky lg:top-24">
+        <aside className="min-w-0 space-y-5 lg:sticky lg:top-24">
           <Card>
             <CardHeader
               title="Enquire about this property"

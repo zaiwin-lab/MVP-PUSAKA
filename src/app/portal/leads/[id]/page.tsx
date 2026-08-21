@@ -132,7 +132,7 @@ export default function LeadDetailPage() {
       </Card>
 
       <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader
               title="Next action"
@@ -213,7 +213,7 @@ export default function LeadDetailPage() {
         </div>
 
         {/* ------------------------------------------------------------ Sidebar */}
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="Prospect" icon={<User size={16} />} action={<StageBadge stage={lead.stage} />} />
             <CardBody className="space-y-3 text-[13.5px]">

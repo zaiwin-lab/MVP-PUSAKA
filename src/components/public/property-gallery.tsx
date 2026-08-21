@@ -16,8 +16,8 @@ export function PropertyGallery({ property }: { property: Property }) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
-        <div className="relative aspect-[16/10] bg-slate-100">
+      <div className="min-w-0 overflow-hidden rounded-2xl border border-line bg-white shadow-card">
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
           <PropertyImage seed={property.code} type={property.type} view={views[index]} />
 
           <div className="absolute left-4 top-4 flex flex-wrap gap-2">

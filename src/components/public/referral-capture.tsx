@@ -23,7 +23,7 @@ export function ReferralCapture() {
     const code = ref ?? storedReferral();
     if (!code) return;
     const match = referrers.find((r) => r.code.toLowerCase() === code.toLowerCase() && r.status === 'approved');
-    if (match && ref) setName(match.name.split(' ').slice(0, 2).join(' '));
+    if (match && ref) setName(match.name);
   }, [params]);
 
   if (!name || dismissed) return null;

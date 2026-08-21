@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 
 export function TableWrap({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn('scrollbar-slim w-full overflow-x-auto', className)}>
+    <div className={cn('scrollbar-slim w-full min-w-0 max-w-full overflow-x-auto', className)}>
       <table className="w-full min-w-[720px] border-collapse text-left text-sm">{children}</table>
     </div>
   );

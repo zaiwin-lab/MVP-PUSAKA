@@ -149,7 +149,7 @@ function ReferrersInner() {
           </TableWrap>
         </Card>
 
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
           <Card>
             <CardHeader title="Leaderboard" subtitle="Top referrers by conversion" icon={<Trophy size={16} />} />
             <CardBody className="space-y-4">

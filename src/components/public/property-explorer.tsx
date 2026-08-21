@@ -179,7 +179,7 @@ export function PropertyExplorer({
               {intent === 'sale' ? 'Properties for sale' : intent === 'rent' ? 'Properties for rent' : 'All properties'}
             </h1>
             <p className="mt-1 text-[13.5px] text-ink-muted">
-              {results.length} {results.length === 1 ? 'property' : 'properties'} match your search
+              {results.length === 1 ? '1 property matches' : `${results.length} properties match`} your search
             </p>
           </div>
 
