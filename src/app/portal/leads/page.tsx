@@ -53,7 +53,7 @@ function LeadsInner() {
   }, [data.leads, quick, officer, source, q, buckets]);
 
   const propertyName = (id: string | null) => data.properties.find((p) => p.id === id)?.name ?? 'General enquiry';
-  const officerName = (id: string | null) => data.users.find((u) => u.id === id)?.name.split(' ').slice(0, 2).join(' ') ?? 'Unassigned';
+  const officerName = (id: string | null) => data.users.find((u) => u.id === id)?.name ?? 'Unassigned';
 
   const exportCsv = () => {
     downloadCsv(

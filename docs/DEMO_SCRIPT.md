@@ -51,11 +51,22 @@ computed live from the seeded dataset, so the numbers on screen will match.
 3. Copy a property share link with a referral code, open it in a new tab, and submit an
    enquiry — the lead appears in the CRM already attributed to that referrer.
 
-## 7. Reports and governance (1 minute)
+## 7. Adding to the portfolio (optional, 1 minute)
+
+1. **`/portal/properties` → Add property**. Enter a name, address, area, rent and size, leave
+   *Publish immediately* ticked and create it.
+2. You land on its scorecard. Open **`/properties`** on the public site and search for it —
+   it is listed, with its own page, share links and QR code.
+3. On **`/portal/leads` → Log enquiry**, record a walk-in against any property and attribute it
+   to a referrer.
+
+## 8. Reports and governance (1 minute)
 
 1. **`/portal/reports`** — export any of the nine management reports as CSV.
 2. **`/portal/admin`** — roles and permissions, referral settings (no commission rate is
    hard-coded), taxonomies, and the Supabase integration path.
+3. Switch persona in the top-right to **Mohd Ridzuan (Finance Executive)** — the sidebar
+   narrows to the dashboard, rental and reports. Switch back to see full access return.
 
 > Use **Reset demo data** in the portal sidebar to restore the dataset before the next
 > demonstration.

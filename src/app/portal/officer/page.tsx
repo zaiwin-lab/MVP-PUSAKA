@@ -12,7 +12,7 @@ import { EmptyState, TableWrap, Td, Th, Tr } from '@/components/ui/table';
 import { useStore } from '@/lib/store';
 import { followupBuckets, scorecards } from '@/lib/metrics';
 import { healthLabel, propertyStatusLabel } from '@/lib/labels';
-import { formatCurrency } from '@/lib/utils';
+import { firstName, formatCurrency } from '@/lib/utils';
 import { daysUntil, formatDate, formatDateTime } from '@/lib/dates';
 
 export default function OfficerDashboard() {
@@ -35,7 +35,7 @@ export default function OfficerDashboard() {
     <>
       <PageHeader
         eyebrow="Officer Dashboard"
-        title={`${greeting}, ${officer.name.split(' ')[1] ?? officer.name.split(' ')[0]}`}
+        title={`${greeting}, ${firstName(officer.name)}`}
         subtitle={`${officer.title} · Here is everything waiting for you today.`}
         action={<ButtonLink href="/portal/leads" size="sm"><Contact size={14} /> Open my pipeline</ButtonLink>}
       />

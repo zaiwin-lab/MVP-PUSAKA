@@ -40,6 +40,18 @@ export function initialsOf(name: string) {
     .join('');
 }
 
+const HONORIFICS = new Set([
+  'datin', 'datuk', 'dato', "dato'", 'sri', 'seri', 'encik', 'puan', 'cik', 'tuan',
+  'dr', 'dr.', 'ir', 'ir.', 'haji', 'hajjah', 'tan', 'prof', 'prof.',
+]);
+
+/** First name for a friendly greeting, with common Malaysian honorifics skipped. */
+export function firstName(fullName: string) {
+  const parts = fullName.split(/\s+/).filter(Boolean);
+  const start = parts.findIndex((part) => !HONORIFICS.has(part.toLowerCase()));
+  return parts[start === -1 ? 0 : start] ?? fullName;
+}
+
 export function slugify(value: string) {
   return value
     .toLowerCase()

@@ -34,18 +34,22 @@ and one-tap sharing to WhatsApp, Facebook and LinkedIn with a downloadable QR co
 | `/portal` | Executive dashboard — 16 KPIs, portfolio, income, vacancy, pipeline, referral and activity |
 | `/portal/officer` | Officer's day — new leads, follow-ups due and overdue, viewings, tenancy actions |
 | `/portal/action-centre` | Priority actions surfaced automatically, each linked to its records |
-| `/portal/properties` | Master property database (table and card views, CSV export) |
+| `/portal/properties` | Master property database (table and card views, add property, CSV export) |
 | `/portal/properties/[id]` | Per-property scorecard — health, income, marketing, leads, ledger, status controls |
 | `/portal/idle-assets` | Idle asset watchlist and *potential income currently unrealised* |
 | `/portal/rental` | Rental and income monitoring — expected, collected, outstanding, collection rate |
 | `/portal/tenancies` | Tenancy register with 90 / 60 / 30-day expiry alerts |
-| `/portal/leads` | Lead CRM — drag-and-drop Kanban and table view |
+| `/portal/leads` | Lead CRM — drag-and-drop Kanban and table view, walk-in enquiry intake |
 | `/portal/leads/[id]` | Lead record — timeline, stage tracker, notes, follow-ups, assignment |
 | `/portal/referrers` | Referral network governance, leaderboard and incentive register |
 | `/portal/referrers/[id]` | Referrer record — funnel, attributed leads, link and QR |
 | `/portal/campaigns` | Campaign link builder and channel performance |
 | `/portal/reports` | Nine management reports, all exportable to CSV |
 | `/portal/admin` | Users, roles, referral settings, taxonomies, data and integrations |
+
+Switching persona in the top-right changes the role, and the sidebar offers only what that
+role may open — a Finance Viewer sees the dashboard, rental and reports; an Officer sees their
+own day, portfolio and pipeline; only a Super Admin sees Admin & Settings.
 
 ### 3. Referrer dashboard (`/referrer`)
 Mobile-friendly partner view: referral link, QR code, share-ready properties, funnel from

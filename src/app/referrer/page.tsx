@@ -17,7 +17,7 @@ import { EmptyState, TableWrap, Td, Th, Tr } from '@/components/ui/table';
 import { useStore } from '@/lib/store';
 import { referrerStats } from '@/lib/metrics';
 import { incentiveStatusLabel, leadStageShort, propertyStatusLabel } from '@/lib/labels';
-import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils';
+import { firstName, formatCurrency, formatNumber, formatPercent } from '@/lib/utils';
 import { formatDate } from '@/lib/dates';
 
 const funnelSteps = [
@@ -65,7 +65,7 @@ export default function ReferrerDashboard() {
               aria-label="Demo referrer"
             >
               {approved.map((r) => (
-                <option key={r.id} value={r.id}>{r.name.split(' ').slice(0, 2).join(' ')}</option>
+                <option key={r.id} value={r.id}>{r.name}</option>
               ))}
             </Select>
             <ButtonLink href="/properties" variant="outline" size="sm" className="hidden sm:inline-flex">
@@ -80,7 +80,7 @@ export default function ReferrerDashboard() {
           <div>
             <p className="eyebrow inline-flex items-center gap-2"><Handshake size={13} /> Referral Partner Dashboard</p>
             <h1 className="mt-2 font-display text-[28px] font-semibold tracking-tight text-ink sm:text-[34px]">
-              Welcome back, {referrer.name.split(' ')[0]}
+              Welcome back, {firstName(referrer.name)}
             </h1>
             <p className="mt-1.5 text-[14px] text-ink-muted">
               Your referral code is <strong className="font-semibold text-ink">{referrer.code}</strong> · approved{' '}

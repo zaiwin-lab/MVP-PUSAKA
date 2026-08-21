@@ -211,8 +211,8 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
                   <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-700 text-[12px] font-semibold text-white">
                     {user.initials}
                   </span>
-                  <span className="hidden text-left sm:block">
-                    <span className="block text-[12.5px] font-semibold leading-tight text-ink">{user.name.split(' ').slice(0, 2).join(' ')}</span>
+                  <span className="hidden max-w-[168px] text-left sm:block">
+                    <span className="block truncate text-[12.5px] font-semibold leading-tight text-ink">{user.name}</span>
                     <span className="block text-[11px] leading-tight text-ink-muted">{roleLabel[role]}</span>
                   </span>
                   <ChevronDown size={14} className="text-ink-soft" />
@@ -243,7 +243,7 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
                                 {u.initials}
                               </span>
                               <span className="flex-1">
-                                <span className="block font-medium text-ink">{u.name.split(' ').slice(0, 2).join(' ')}</span>
+                                <span className="block font-medium text-ink">{u.name}</span>
                                 <span className="block text-[11px]">{roleLabel[u.role]}</span>
                               </span>
                             </button>

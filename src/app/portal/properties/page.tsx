@@ -138,7 +138,7 @@ function PropertiesInner() {
           <Select value={officer} onChange={(e) => setOfficer(e.target.value)} className="h-10 w-auto min-w-[160px] text-[13px]">
             <option value="">All officers</option>
             {data.users.filter((u) => ['officer', 'property_manager'].includes(u.role)).map((u) => (
-              <option key={u.id} value={u.id}>{u.name.split(' ').slice(0, 2).join(' ')}</option>
+              <option key={u.id} value={u.id}>{u.name}</option>
             ))}
           </Select>
           <Select value={health} onChange={(e) => setHealth(e.target.value)} className="h-10 w-auto min-w-[150px] text-[13px]">
@@ -200,7 +200,7 @@ function PropertiesInner() {
                     {c.vacantDays || '—'}
                   </Td>
                   <Td align="right">{c.leads}</Td>
-                  <Td className="text-[12.5px]">{data.users.find((u) => u.id === c.property.officer_id)?.name.split(' ').slice(0, 2).join(' ')}</Td>
+                  <Td className="text-[12.5px]">{data.users.find((u) => u.id === c.property.officer_id)?.name}</Td>
                   <Td className="max-w-[210px]">
                     <span className="block truncate text-[12.5px] text-ink-muted">{c.property.next_action}</span>
                     <span className="mt-0.5 block text-[11px] text-ink-soft">Due {formatDate(c.property.next_action_due)}</span>

@@ -4,7 +4,7 @@ import { Mail, MessageCircle, Phone } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Lead, LeadStage } from '@/lib/types';
 import { leadStageShort } from '@/lib/labels';
-import { cn, whatsappLink } from '@/lib/utils';
+import { cn, firstName, whatsappLink } from '@/lib/utils';
 
 const stageTone: Record<LeadStage, 'slate' | 'blue' | 'emerald' | 'gold' | 'red' | 'ink'> = {
   new: 'blue',
@@ -29,7 +29,7 @@ export function QuickContact({ lead, size = 'md', onLog }: { lead: Lead; size?: 
     size === 'sm' ? 'h-8 w-8' : 'h-9 w-9',
   );
   const icon = size === 'sm' ? 14 : 15;
-  const waText = `Hello ${lead.name.split(' ')[0]}, this is KO-PUSAKA following up on your property enquiry (${lead.code}).`;
+  const waText = `Hello ${firstName(lead.name)}, this is KO-PUSAKA following up on your property enquiry (${lead.code}).`;
 
   return (
     <div className="flex items-center gap-1.5">

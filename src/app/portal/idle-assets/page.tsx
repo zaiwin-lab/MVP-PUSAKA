@@ -145,7 +145,7 @@ export default function IdleAssetsPage() {
                     <span className="mt-0.5 block text-[11px] font-semibold text-red-600">{c.daysSinceMarketing} days ago</span>
                   ) : null}
                 </Td>
-                <Td className="text-[12.5px]">{data.users.find((u) => u.id === c.property.officer_id)?.name.split(' ').slice(0, 2).join(' ')}</Td>
+                <Td className="text-[12.5px]">{data.users.find((u) => u.id === c.property.officer_id)?.name}</Td>
                 <Td className="max-w-[200px] truncate text-[12.5px] text-ink-muted">{c.property.next_action}</Td>
                 <Td>
                   <span className="inline-flex items-center gap-2 text-[12.5px] text-ink-muted"><HealthDot health={c.health} /> {healthLabel[c.health]}</span>
