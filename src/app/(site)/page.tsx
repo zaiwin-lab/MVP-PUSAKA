@@ -59,7 +59,7 @@ export default function HomePage() {
           <div className="absolute -bottom-40 left-1/4 h-[320px] w-[320px] rounded-full bg-gold-50" />
         </div>
 
-        <div className="container-page relative grid gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-20">
+        <div className="container-page relative grid gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pb-10 lg:pt-16">
           <div className="animate-fade-up">
             <p className="eyebrow inline-flex items-center gap-2">
               <Sparkles size={13} /> From Idle Assets to Active Income
@@ -112,7 +112,7 @@ export default function HomePage() {
                   </ButtonLink>
                 </div>
               </div>
-              <div className="absolute -bottom-5 -left-4 hidden rounded-xl border border-line bg-white px-4 py-3 shadow-lift sm:block">
+              <div className="absolute bottom-[92px] left-4 hidden rounded-xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur sm:block">
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.1em] text-ink-soft">Asking rate</p>
                 <p className="mt-1 font-display text-xl font-semibold text-ink">
                   {formatCurrency(hero.asking_rent ?? hero.sale_price)}
@@ -125,13 +125,13 @@ export default function HomePage() {
           ) : null}
         </div>
 
-        <div className="container-page relative -mb-10 translate-y-10">
+        <div className="container-page relative pb-14">
           <PropertySearchBar locations={publicLocations()} types={publicTypes()} />
         </div>
       </section>
 
       {/* ------------------------------------------------------ Featured list */}
-      <section className="container-page pt-24">
+      <section className="container-page pt-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Featured Properties</p>

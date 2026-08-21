@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-export function Logomark({ className }: { className?: string }) {
+export function Logomark({ className, tone = 'dark' }: { className?: string; tone?: 'dark' | 'light' }) {
+  const inverse = tone === 'light';
   return (
     <svg viewBox="0 0 40 40" className={cn('h-9 w-9', className)} aria-hidden>
-      <rect width="40" height="40" rx="11" fill="currentColor" />
+      <rect width="40" height="40" rx="11" fill={inverse ? 'rgba(255,255,255,0.14)' : 'currentColor'} />
+      {inverse ? <rect x="0.75" y="0.75" width="38.5" height="38.5" rx="10.5" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1.5" /> : null}
       <path d="M11 27.5V12.5h3.4v6.3l5.5-6.3h4.2l-5.9 6.6 6.3 8.4h-4.3l-4.4-6-1.4 1.6v4.4H11Z" fill="#fff" />
       <circle cx="28.5" cy="15" r="2.6" fill="#e4c26d" />
       <path d="M25.6 27.5v-6.6a2.9 2.9 0 0 1 5.8 0v6.6h-2.6v-6.2a.3.3 0 0 0-.6 0v6.2h-2.6Z" fill="#fff" opacity=".85" />
@@ -15,7 +17,7 @@ export function Logomark({ className }: { className?: string }) {
 export function Logo({ className, tone = 'dark', href = '/' }: { className?: string; tone?: 'dark' | 'light'; href?: string }) {
   return (
     <Link href={href} className={cn('group inline-flex items-center gap-2.5', className)}>
-      <Logomark className={cn('h-9 w-9 transition-transform group-hover:scale-[1.04]', tone === 'light' ? 'text-white' : 'text-emerald-700')} />
+      <Logomark tone={tone} className={cn('h-9 w-9 transition-transform group-hover:scale-[1.04]', tone === 'light' ? 'text-white' : 'text-emerald-700')} />
       <span className="leading-none">
         <span className={cn('block font-display text-[17px] font-semibold tracking-tight', tone === 'light' ? 'text-white' : 'text-ink')}>
           KO-PUSAKA

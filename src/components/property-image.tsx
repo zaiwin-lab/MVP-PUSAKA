@@ -99,7 +99,9 @@ export function PropertyImage({
       <circle cx={60 + (n % 240)} cy={54 + (n % 26)} r={26} fill="#ffffff" opacity="0.5" />
 
       {archetype === 'exterior' && (
-        <>
+        // Each view shifts the camera slightly so a gallery reads as several
+        // photographs of the same building rather than one repeated image.
+        <g transform={`translate(${(n % 34) - 17} ${(n % 13) - 6}) scale(${1 + ((n % 9) - 4) / 55})`} style={{ transformOrigin: '200px 220px' }}>
           {/* distant skyline */}
           <g opacity="0.5">
             {[0, 1, 2, 3, 4, 5].map((i) => {
@@ -181,11 +183,11 @@ export function PropertyImage({
               <circle cx={x - 8} cy={196} r={13} fill="#2f7d5b" opacity="0.22" />
             </g>
           ))}
-        </>
+        </g>
       )}
 
       {archetype === 'interior' && (
-        <>
+        <g transform={`translate(${(n % 26) - 13} 0)`}>
           <rect width="400" height="300" fill={p.body} />
           <rect x="0" y="0" width="400" height="196" fill={p.body} />
           <rect x="0" y="196" width="400" height="104" fill={p.bodyDark} />
@@ -205,11 +207,11 @@ export function PropertyImage({
           <circle cx="176" cy="196" r="9" fill={p.accent} opacity="0.45" />
           <rect x="30" y="52" width="60" height="76" rx="3" fill={p.bodyDark} />
           <rect x="30" y="52" width="60" height="6" fill={p.roof} opacity="0.5" />
-        </>
+        </g>
       )}
 
       {archetype === 'land' && (
-        <>
+        <g transform={`rotate(${((n % 7) - 3) * 1.4} 200 150)`}>
           <rect width="400" height="300" fill={p.ground} />
           <rect x="0" y="0" width="400" height="300" fill={p.sky[0]} opacity="0.35" />
           {/* parcels */}
@@ -232,9 +234,12 @@ export function PropertyImage({
             </g>
           ))}
           <rect x="150" y="118" width="70" height="40" rx="3" fill={p.accent} opacity="0.18" />
-        </>
+        </g>
       )}
 
+      {['night', 'precinct'].includes(view) ? (
+        <rect width="400" height="300" fill="#194e3a" opacity="0.16" />
+      ) : null}
       <rect width="400" height="300" fill={`url(#${gid}-vig)`} />
     </svg>
   );
