@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode,
+  createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode,
 } from 'react';
 import type { Dataset } from '@/lib/dataset';
 import { seedDataset } from '@/lib/dataset';
@@ -10,7 +10,7 @@ import type {
   Property, PropertyStatus, ReferrerStatus, Role,
 } from '@/lib/types';
 import { d, dt } from '@/lib/dates';
-import { uid } from '@/lib/utils';
+import { slugify, uid } from '@/lib/utils';
 
 const STORAGE_KEY = 'kopusaka-asset360-demo-v1';
 
@@ -27,6 +27,24 @@ export interface EnquiryInput {
   source?: LeadSourceKey;
 }
 
+export interface NewPropertyInput {
+  name: string;
+  type: Property['type'];
+  address: string;
+  location: string;
+  district: string;
+  asset_value: number;
+  asking_rent: number | null;
+  sale_price: number | null;
+  floor_size_sqft: number;
+  land_size_sqft: number | null;
+  officer_id: string;
+  description: string;
+  status: PropertyStatus;
+  listing_intent: Property['listing_intent'];
+  published: boolean;
+}
+
 interface StoreValue {
   data: Dataset;
   hydrated: boolean;
@@ -39,6 +57,7 @@ interface StoreValue {
   assignLead: (leadId: string, officerId: string) => void;
   logActivity: (leadId: string, kind: ActivityKind, summary: string, detail?: string) => void;
   scheduleFollowup: (leadId: string, date: string, action: string) => void;
+  addProperty: (input: NewPropertyInput) => Property;
   updateProperty: (propertyId: string, patch: Partial<Property>) => void;
   setPropertyStatus: (propertyId: string, status: PropertyStatus) => void;
   recordMarketingActivity: (propertyId: string, note: string) => void;
@@ -58,6 +77,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [role, setRole] = useState<Role>('management');
   const [currentUserId, setCurrentUserId] = useState('usr-0004');
+
+  // Actions that must read the current dataset synchronously (before a state
+  // update lands) go through this ref rather than the seed.
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
   // The seeded dataset renders on the server; live demo changes are layered in
   // after mount so server and client markup always match.
@@ -109,11 +133,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [currentUserId]);
 
   const submitEnquiry = useCallback<StoreValue['submitEnquiry']>((input) => {
-    const seedRef = seedDataset().referrers;
+    const current = dataRef.current;
     const referrer = input.referral_code
-      ? seedRef.find((r) => r.code.toLowerCase() === input.referral_code!.toLowerCase() && r.status === 'approved') ?? null
+      ? current.referrers.find(
+          (r) => r.code.toLowerCase() === input.referral_code!.toLowerCase() && r.status === 'approved',
+        ) ?? null
       : null;
-    const property = seedDataset().properties.find((p) => p.id === input.property_id) ?? null;
+    const property = current.properties.find((p) => p.id === input.property_id) ?? null;
     const lead: Lead = {
       id: uid('led'),
       code: `L-${Math.floor(2100 + Math.random() * 800)}`,
@@ -289,6 +315,48 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }));
   }, [currentUserId]);
 
+  const addProperty = useCallback<StoreValue['addProperty']>((input) => {
+    const id = uid('prp');
+    const property: Property = {
+      id,
+      code: `KPS-P-${`${Math.floor(100 + Math.random() * 800)}`}`,
+      slug: `${slugify(input.name)}-${slugify(input.district || input.location)}`,
+      name: input.name,
+      address: input.address,
+      location: input.location,
+      district: input.district,
+      lat: 1.5535 + (Math.random() - 0.5) * 2,
+      lng: 110.3593 + (Math.random() - 0.5) * 3,
+      type: input.type,
+      description: input.description,
+      highlights: [],
+      facilities: [],
+      images: ['facade', 'frontage', 'interior', 'street'],
+      documents: [],
+      officer_id: input.officer_id,
+      asset_value: input.asset_value,
+      sale_price: input.sale_price,
+      asking_rent: input.asking_rent,
+      current_rent: input.status === 'occupied' ? input.asking_rent : null,
+      deposit: input.asking_rent ? input.asking_rent * 3 : null,
+      floor_size_sqft: input.floor_size_sqft,
+      land_size_sqft: input.land_size_sqft,
+      status: input.status,
+      listing_intent: input.listing_intent,
+      published: input.published,
+      badges: ['new_listing'],
+      date_listed: d(0),
+      vacant_since: input.status === 'occupied' ? null : d(0),
+      last_marketing_activity: d(0),
+      next_action: 'Publish photographs and share the listing',
+      next_action_due: d(7),
+      updated_at: d(0),
+      created_at: d(0),
+    };
+    setData((prev) => ({ ...prev, properties: [property, ...prev.properties] }));
+    return property;
+  }, []);
+
   const updateProperty = useCallback<StoreValue['updateProperty']>((propertyId, patch) => {
     setData((prev) => ({
       ...prev,
@@ -389,12 +457,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     () => ({
       data, hydrated, role, setRole, currentUserId, setCurrentUserId,
       submitEnquiry, updateLeadStage, assignLead, logActivity, scheduleFollowup,
-      updateProperty, setPropertyStatus, recordMarketingActivity, setReferrerStatus,
+      addProperty, updateProperty, setPropertyStatus, recordMarketingActivity, setReferrerStatus,
       setRewardStatus, recordPayment, markLeadLost, resetDemo,
     }),
     [
       data, hydrated, role, currentUserId, submitEnquiry, updateLeadStage, assignLead, logActivity,
-      scheduleFollowup, updateProperty, setPropertyStatus, recordMarketingActivity, setReferrerStatus,
+      scheduleFollowup, addProperty, updateProperty, setPropertyStatus, recordMarketingActivity, setReferrerStatus,
       setRewardStatus, recordPayment, markLeadLost, resetDemo,
     ],
   );

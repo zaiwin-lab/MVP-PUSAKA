@@ -19,33 +19,33 @@ const groups: { label: string; items: { href: string; label: string; icon: typeo
   {
     label: 'Overview',
     items: [
-      { href: '/portal', label: 'Executive Dashboard', icon: LayoutDashboard },
-      { href: '/portal/officer', label: 'My Day (Officer)', icon: Gauge },
-      { href: '/portal/action-centre', label: 'Action Centre', icon: ShieldAlert },
+      { href: '/portal', label: 'Executive Dashboard', icon: LayoutDashboard, roles: ['super_admin', 'management', 'property_manager', 'finance_viewer'] },
+      { href: '/portal/officer', label: 'My Day (Officer)', icon: Gauge, roles: ['super_admin', 'property_manager', 'officer'] },
+      { href: '/portal/action-centre', label: 'Action Centre', icon: ShieldAlert, roles: ['super_admin', 'management', 'property_manager', 'officer'] },
     ],
   },
   {
     label: 'Portfolio',
     items: [
-      { href: '/portal/properties', label: 'Properties', icon: Building2 },
-      { href: '/portal/idle-assets', label: 'Idle Asset Watchlist', icon: PieChart },
-      { href: '/portal/tenancies', label: 'Tenancies', icon: ClipboardList },
-      { href: '/portal/rental', label: 'Rental & Income', icon: Wallet },
+      { href: '/portal/properties', label: 'Properties', icon: Building2, roles: ['super_admin', 'management', 'property_manager', 'officer'] },
+      { href: '/portal/idle-assets', label: 'Idle Asset Watchlist', icon: PieChart, roles: ['super_admin', 'management', 'property_manager', 'officer'] },
+      { href: '/portal/tenancies', label: 'Tenancies', icon: ClipboardList, roles: ['super_admin', 'management', 'property_manager', 'officer'] },
+      { href: '/portal/rental', label: 'Rental & Income', icon: Wallet, roles: ['super_admin', 'management', 'property_manager', 'finance_viewer'] },
     ],
   },
   {
     label: 'Growth',
     items: [
-      { href: '/portal/leads', label: 'Lead CRM', icon: Contact },
-      { href: '/portal/referrers', label: 'Referral Network', icon: Handshake },
-      { href: '/portal/campaigns', label: 'Campaigns', icon: Megaphone },
+      { href: '/portal/leads', label: 'Lead CRM', icon: Contact, roles: ['super_admin', 'management', 'property_manager', 'officer'] },
+      { href: '/portal/referrers', label: 'Referral Network', icon: Handshake, roles: ['super_admin', 'management', 'property_manager'] },
+      { href: '/portal/campaigns', label: 'Campaigns', icon: Megaphone, roles: ['super_admin', 'management', 'property_manager'] },
     ],
   },
   {
     label: 'Administration',
     items: [
-      { href: '/portal/reports', label: 'Reports', icon: FileBarChart },
-      { href: '/portal/admin', label: 'Admin & Settings', icon: Settings },
+      { href: '/portal/reports', label: 'Reports', icon: FileBarChart, roles: ['super_admin', 'management', 'property_manager', 'finance_viewer'] },
+      { href: '/portal/admin', label: 'Admin & Settings', icon: Settings, roles: ['super_admin'] },
     ],
   },
 ];
@@ -63,6 +63,11 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
     setUserOpen(false);
   }, [pathname]);
 
+  // Role-based access control: the sidebar only offers what this role may open.
+  const visibleGroups = groups
+    .map((group) => ({ ...group, items: group.items.filter((item) => !item.roles || item.roles.includes(role)) }))
+    .filter((group) => group.items.length);
+
   const alerts = actionAlerts(data);
   const notifs = notifications(data).slice(0, 8);
   const user = data.users.find((u) => u.id === currentUserId) ?? data.users[0];
@@ -78,7 +83,7 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <nav className="scrollbar-slim flex-1 overflow-y-auto px-3 py-5">
-        {groups.map((group) => (
+        {visibleGroups.map((group) => (
           <div key={group.label} className="mb-6">
             <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/35">{group.label}</p>
             <ul className="space-y-0.5">
@@ -110,6 +115,7 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
       </nav>
 
       <div className="shrink-0 border-t border-white/10 p-4">
+        <p className="mb-2 px-3 text-[10.5px] uppercase tracking-[0.12em] text-white/35">Viewing as {roleLabel[role]}</p>
         <Link href="/" className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-[13px] text-white/60 transition hover:bg-white/[0.07] hover:text-white">
           <LogOut size={15} /> Back to public site
         </Link>

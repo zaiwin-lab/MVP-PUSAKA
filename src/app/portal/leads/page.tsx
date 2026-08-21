@@ -5,6 +5,7 @@ import { Suspense, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Columns3, Download, Filter, Rows3, Search } from 'lucide-react';
 import { PageHeader } from '@/components/portal/page-header';
+import { NewLeadModal } from '@/components/portal/new-lead-modal';
 import { StageBadge, QuickContact, FollowupChip } from '@/components/portal/lead-bits';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -96,6 +97,7 @@ function LeadsInner() {
         subtitle="Every enquiry from the public site, WhatsApp, referrals and campaigns lands here with an owner, a stage and a next action."
         action={
           <>
+            <NewLeadModal />
             <Button variant="outline" size="sm" onClick={exportCsv}>
               <Download size={14} /> Export CSV
             </Button>

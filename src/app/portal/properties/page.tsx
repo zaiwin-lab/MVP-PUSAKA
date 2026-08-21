@@ -5,6 +5,7 @@ import { Suspense, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Download, LayoutGrid, Rows3, Search } from 'lucide-react';
 import { PageHeader } from '@/components/portal/page-header';
+import { NewPropertyModal } from '@/components/portal/new-property-modal';
 import { PropertyImage } from '@/components/property-image';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
 import { Badge, HealthDot } from '@/components/ui/badge';
@@ -92,6 +93,7 @@ function PropertiesInner() {
         subtitle="The master property database — status, income, marketing activity and the next step for every asset."
         action={
           <>
+            <NewPropertyModal />
             <Button variant="outline" size="sm" onClick={exportCsv}>
               <Download size={14} /> Export CSV
             </Button>

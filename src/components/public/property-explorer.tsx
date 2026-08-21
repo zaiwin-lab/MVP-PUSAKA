@@ -8,6 +8,7 @@ import { PropertyMap } from '@/components/public/property-map';
 import { Button } from '@/components/ui/button';
 import { Input, Label, Select } from '@/components/ui/field';
 import { EmptyState } from '@/components/ui/table';
+import { useStore } from '@/lib/store';
 import type { Property, PropertyType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -22,7 +23,7 @@ const sizeBands = [
 ];
 
 export function PropertyExplorer({
-  properties, locations, types,
+  properties: seeded, locations, types,
 }: {
   properties: Property[];
   locations: string[];
@@ -30,6 +31,11 @@ export function PropertyExplorer({
 }) {
   const params = useSearchParams();
   const router = useRouter();
+  // The store starts from the same seed, so first render matches the server;
+  // properties added during the demo then appear here automatically.
+  const { data } = useStore();
+  const properties = data.properties.filter((p) => p.published && p.status !== 'sold' && p.status !== 'inactive');
+  void seeded;
 
   const [intent, setIntent] = useState(params.get('intent') ?? 'all');
   const [location, setLocation] = useState(params.get('location') ?? '');

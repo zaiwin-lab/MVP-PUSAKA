@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   ArrowRight, BadgeCheck, Building2, FileSearch, Handshake, MapPin, MessageCircle, ShieldCheck, Sparkles, TrendingUp,
@@ -6,7 +8,9 @@ import { ButtonLink } from '@/components/ui/button';
 import { PropertyCard } from '@/components/public/property-card';
 import { PropertySearchBar } from '@/components/public/property-search-bar';
 import { PropertyImage } from '@/components/property-image';
-import { featuredProperties, publicLocations, publicProperties, publicTypes } from '@/lib/public';
+import { publicLocations, publicTypes } from '@/lib/public';
+import { useStore } from '@/lib/store';
+import type { Property, PropertyType } from '@/lib/types';
 import { formatCurrency, formatNumber } from '@/lib/utils';
 import { properties } from '@/lib/data/properties';
 
@@ -43,9 +47,20 @@ const reasons = [
   },
 ];
 
+/** Ranks listings so featured, new and urgent units lead the homepage. */
+function rankFeatured(list: Property[], limit: number) {
+  const score = (p: Property) =>
+    (p.badges.includes('featured') ? 4 : 0) +
+    (p.badges.includes('new_listing') ? 2 : 0) +
+    (p.badges.includes('urgent_rent') || p.badges.includes('urgent_sale') ? 1 : 0);
+  return [...list].sort((a, b) => score(b) - score(a) || ((a.date_listed ?? '') < (b.date_listed ?? '') ? 1 : -1)).slice(0, limit);
+}
+
 export default function HomePage() {
-  const featured = featuredProperties(6);
-  const listings = publicProperties();
+  // Reads the live dataset so properties added during the demo appear here too.
+  const { data } = useStore();
+  const listings = data.properties.filter((p) => p.published && p.status !== 'sold' && p.status !== 'inactive');
+  const featured = rankFeatured(listings, 6);
   const forRent = listings.filter((p) => p.listing_intent !== 'sale').length;
   const forSale = listings.filter((p) => p.listing_intent === 'sale').length;
   const hero = featured[0];
@@ -240,9 +255,9 @@ export default function HomePage() {
           Find the right kind of space
         </h2>
         <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {publicTypes().map((type) => {
+          {([...new Set(listings.map((p) => p.type))].sort() as PropertyType[]).map((type) => {
             const count = listings.filter((p) => p.type === type).length;
-            const sample = properties.find((p) => p.type === type)!;
+            const sample = properties.find((p) => p.type === type) ?? listings.find((p) => p.type === type)!;
             return (
               <Link
                 key={type}
