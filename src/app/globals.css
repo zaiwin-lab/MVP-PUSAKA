@@ -92,4 +92,19 @@
   .no-print {
     display: none !important;
   }
+
+  body {
+    background: #fff;
+  }
+
+  /* Keep cards and table rows whole across page breaks. */
+  .surface,
+  table,
+  tr {
+    break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: '';
+  }
 }

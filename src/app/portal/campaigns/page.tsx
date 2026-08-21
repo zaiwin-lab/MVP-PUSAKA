@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Copy, Link2, Megaphone, QrCode } from 'lucide-react';
 import { PageHeader } from '@/components/portal/page-header';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { Stat } from '@/components/ui/stat';
 import { TableWrap, Td, Th, Tr } from '@/components/ui/table';
 import { ChannelBars } from '@/components/charts';
 import { useStore } from '@/lib/store';
+import { SITE_URL } from '@/lib/data/settings';
 import { sourcePerformance } from '@/lib/metrics';
 import { leadSourceLabel } from '@/lib/labels';
 import { formatNumber, formatPercent } from '@/lib/utils';
@@ -44,7 +45,9 @@ export default function CampaignsPage() {
     [data.campaigns, data.leads],
   );
 
-  const base = typeof window === 'undefined' ? 'https://asset.kopusaka.my' : window.location.origin;
+  // Resolved after mount so the server and first client render agree.
+  const [base, setBase] = useState(SITE_URL);
+  useEffect(() => setBase(window.location.origin), []);
   const target = property ? `/property/${data.properties.find((p) => p.id === property)?.slug ?? ''}` : '/properties';
   const generated = `${base}${target}?src=${channel}&utm_source=${channel}&utm_campaign=${campaignName || 'campaign'}`;
 

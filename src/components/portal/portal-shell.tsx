@@ -132,7 +132,7 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-canvas">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[264px] bg-ink lg:block">{sidebar}</aside>
+      <aside className="no-print fixed inset-y-0 left-0 z-40 hidden w-[264px] bg-ink lg:block">{sidebar}</aside>
 
       {open ? (
         <div className="fixed inset-0 z-[60] lg:hidden" onClick={() => setOpen(false)}>
@@ -143,8 +143,8 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
         </div>
       ) : null}
 
-      <div className="lg:pl-[264px]">
-        <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur-md">
+      <div className="lg:pl-[264px] print:pl-0">
+        <header className="no-print sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur-md">
           <div className="flex h-[68px] items-center justify-between gap-4 px-4 sm:px-6">
             <div className="flex items-center gap-3">
               <button type="button" className="rounded-lg p-2 text-ink lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
