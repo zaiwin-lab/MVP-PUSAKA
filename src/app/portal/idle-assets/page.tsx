@@ -57,7 +57,7 @@ export default function IdleAssetsPage() {
         <Stat
           label="Potential income currently unrealised"
           value={formatCurrency(rental.potentialMonthly)}
-          sub={`${formatCurrency(rental.potentialAnnual)} annualised across ${idle.length} idle assets`}
+          sub={`${formatCurrency(rental.potentialAnnual)} annualised across ${idle.filter((c) => c.potentialMonthlyIncome > 0).length} lettable idle assets · ${idle.filter((c) => c.property.listing_intent === 'sale').length} more held for sale`}
           tone="dark"
           icon={<TrendingUp size={16} />}
           className="sm:col-span-2"
@@ -66,7 +66,7 @@ export default function IdleAssetsPage() {
         <Stat label="Zero enquiries this month" value={formatNumber(noEnquiries.length)} sub="Marketing attention needed" tone="gold" icon={<Megaphone size={16} />} />
       </section>
 
-      <section className="mt-5 grid gap-5 lg:grid-cols-[1fr_1.2fr]">
+      <section className="mt-5 grid items-start gap-5 lg:grid-cols-[1fr_1.2fr]">
         <Card>
           <CardHeader title="Days vacant" subtitle="Red bars have passed the 90-day management threshold" />
           <CardBody>
@@ -90,8 +90,19 @@ export default function IdleAssetsPage() {
                   <p className="mt-0.5 text-[11.5px] text-ink-soft">{c.vacantDays} days vacant · {c.leads} enquiries</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="font-display text-[16px] font-semibold text-ink">{formatCurrency(c.potentialMonthlyIncome)}</p>
-                  <p className="text-[11px] text-ink-soft">{formatCurrency(c.potentialMonthlyIncome * 12, { compact: true })} a year</p>
+                  {c.property.listing_intent === 'sale' ? (
+                    <>
+                      <p className="font-display text-[16px] font-semibold text-ink">
+                        {formatCurrency(c.property.sale_price, { compact: true })}
+                      </p>
+                      <p className="text-[11px] text-ink-soft">capital release on sale</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-display text-[16px] font-semibold text-ink">{formatCurrency(c.potentialMonthlyIncome)}</p>
+                      <p className="text-[11px] text-ink-soft">{formatCurrency(c.potentialMonthlyIncome * 12, { compact: true })} a year</p>
+                    </>
+                  )}
                 </div>
               </div>
             ))}
@@ -136,8 +147,14 @@ export default function IdleAssetsPage() {
                 <Td align="right" className={c.vacantDays > 90 ? 'font-semibold text-red-600' : c.vacantDays > 30 ? 'font-semibold text-gold-600' : ''}>
                   {c.vacantDays}
                 </Td>
-                <Td align="right">{formatCurrency(c.potentialMonthlyIncome)}</Td>
-                <Td align="right">{formatCurrency(c.potentialMonthlyIncome * 12, { compact: true })}</Td>
+                <Td align="right">
+                  {c.potentialMonthlyIncome ? formatCurrency(c.potentialMonthlyIncome) : '—'}
+                </Td>
+                <Td align="right">
+                  {c.potentialMonthlyIncome
+                    ? formatCurrency(c.potentialMonthlyIncome * 12, { compact: true })
+                    : `${formatCurrency(c.property.sale_price, { compact: true })} sale`}
+                </Td>
                 <Td align="right">{c.leads}</Td>
                 <Td className="text-[12.5px]">
                   {formatDate(c.property.last_marketing_activity)}
