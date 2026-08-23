@@ -1,175 +1,99 @@
-# KO-PUSAKA ASSET360
+# KOPUSAKA Asset360
 
-**From Idle Assets to Active Income.**
+> **Maturity:** Working public demonstration · browser-local operational prototype with a Supabase-ready schema
 
-A property asset command centre, public marketplace, lead CRM and referral engine for
-KO-PUSAKA — built as a working Next.js application populated with realistic demonstration
-data so decision-makers can use it, not just read about it.
+KOPUSAKA Asset360 is a property portfolio command centre that combines a public marketplace, internal asset oversight, lead management and referral tracking in one product concept.
 
----
+**Live demonstration:** [kopusaka-asset360.netlify.app](https://kopusaka-asset360.netlify.app/)
 
-## What is in the box
+## Business problem
 
-### 1. Public property marketplace (`/`)
-Premium, mobile-first marketplace designed to convert visitors into enquiries.
+Property-owning organisations can lose income when asset records, vacancy status, enquiries, tenancy actions and referral activity are scattered across spreadsheets and individual conversations. Asset360 explores a shared workflow that makes every asset visible and turns idle-property information into prioritised action.
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Homepage — hero, property search, featured listings, referral programme |
-| `/properties` | Search and filter with grid, list and map views |
-| `/property/[slug]` | SEO-friendly property page built to convert (gallery, specs, enquiry form, share tools, related units) |
-| `/for-rent`, `/for-sale` | Intent-filtered entry points |
-| `/about`, `/contact` | Trust and contact |
-| `/become-a-referrer` | Referral programme and application form |
-| `/privacy`, `/terms`, `/referral-policy` | Policy pages |
-| `/r/[code]` | Referral entry point — stamps attribution server-side and redirects |
+## Intended users
 
-Every property page carries OpenGraph metadata, a generated social preview image
-(`opengraph-image`), `RealEstateListing` JSON-LD, a sticky mobile Enquire / WhatsApp bar,
-and one-tap sharing to WhatsApp, Facebook and LinkedIn with a downloadable QR code.
+- Property and asset managers
+- Management and board reviewers
+- Leasing, sales and enquiry officers
+- Finance viewers monitoring rental performance
+- Approved referral partners
+- Prospective tenants and purchasers using the public marketplace
 
-### 2. Management portal (`/portal`)
-| Route | Purpose |
-| --- | --- |
-| `/portal` | Executive dashboard — 16 KPIs, portfolio, income, vacancy, pipeline, referral and activity |
-| `/portal/officer` | Officer's day — new leads, follow-ups due and overdue, viewings, tenancy actions |
-| `/portal/action-centre` | Priority actions surfaced automatically, each linked to its records |
-| `/portal/properties` | Master property database (table and card views, add property, CSV export) |
-| `/portal/properties/[id]` | Per-property scorecard — health, income, marketing, leads, ledger, status controls |
-| `/portal/idle-assets` | Idle asset watchlist and *potential income currently unrealised* |
-| `/portal/rental` | Rental and income monitoring — expected, collected, outstanding, collection rate |
-| `/portal/tenancies` | Tenancy register with 90 / 60 / 30-day expiry alerts |
-| `/portal/leads` | Lead CRM — drag-and-drop Kanban and table view, walk-in enquiry intake |
-| `/portal/leads/[id]` | Lead record — timeline, stage tracker, notes, follow-ups, assignment |
-| `/portal/referrers` | Referral network governance, leaderboard and incentive register |
-| `/portal/referrers/[id]` | Referrer record — funnel, attributed leads, link and QR |
-| `/portal/campaigns` | Campaign link builder and channel performance |
-| `/portal/reports` | Nine management reports, all exportable to CSV |
-| `/portal/admin` | Users, roles, referral settings, taxonomies, data and integrations |
+## Demonstrated capabilities
 
-Switching persona in the top-right changes the role, and the sidebar offers only what that
-role may open — a Finance Viewer sees the dashboard, rental and reports; an Officer sees their
-own day, portfolio and pipeline; only a Super Admin sees Admin & Settings.
+- Public property search, filters, listing pages and enquiry journeys
+- Rent, sale and property-detail entry points with share links and QR codes
+- Management dashboard covering portfolio, vacancy, income, pipeline and activity
+- Property records, health indicators, idle-asset watchlists and CSV export
+- Lead CRM with stages, follow-ups, activity history and officer assignment
+- Tenancy and rental-ledger presentation with expiry and arrears indicators
+- Referral-code attribution, referrer views and incentive-status workflows
+- Campaign-link builder, reports and role-oriented navigation
+- Responsive public, staff and referrer experiences
 
-### 3. Referrer dashboard (`/referrer`)
-Mobile-friendly partner view: referral link, QR code, share-ready properties, funnel from
-click to closed deal, attributed enquiries (progress only — prospect contact details stay
-with KO-PUSAKA) and incentive status.
+## Strategic value
 
----
+The platform connects public demand generation with internal asset decisions. It demonstrates how a cooperative or institutional property owner could progress from a static asset register toward an accountable operating system for vacancy reduction, enquiry follow-up, rental visibility and governed referrals.
 
-## Everything is connected
+## What is actually implemented
 
-```
-Public visitor → property page → enquiry / WhatsApp / viewing request
-   → lead created in CRM (referral attribution captured)
-      → officer assigned → follow-up → viewing → negotiation
-         → agreement → property status becomes Occupied
-            → rental income monitored → referral credit recorded
-```
+The current public build is a realistic demonstration environment. Its seeded properties, leads, tenancies, users, campaigns, payments and performance figures are **sample data**, not a record of KOPUSAKA’s real portfolio or results.
 
-Moving a lead to **negotiation**, **agreement** or **successful** updates the property status,
-the occupancy rate, the income figures and — where a referrer is attributed — creates an
-incentive record. Submitting an enquiry on the public site makes it appear in the CRM
-immediately.
+Application interactions use a React store backed by browser `localStorage`. Enquiries, stage changes, property updates and referral activity can therefore be tested locally in the browser, but they are not transmitted to an organisational database.
 
----
+A detailed PostgreSQL/Supabase schema is included with role definitions and Row Level Security policies. It is an implementation foundation, not evidence that the live demonstration is connected to Supabase.
 
-## Running it
+No generative-AI or autonomous decision engine is implemented. Property health and priority indicators are deterministic calculations intended to support—not replace—human review.
+
+## Technology
+
+- Next.js 15 App Router, React 19 and TypeScript
+- Tailwind CSS and reusable interface components
+- Recharts for visual reporting
+- Browser-local demonstration store and seeded dataset
+- PostgreSQL/Supabase schema with prepared roles and RLS policies
+- Netlify static/server rendering integration
+- QR-code generation and CSV exports
+
+## Delivery role
+
+**Ts. Zaiwin Kassim** leads product framing, property-workflow architecture, stakeholder alignment and supervised AI-assisted delivery with the **KOBIS AI Prodigy Team**. This repository demonstrates product and solution-delivery capability; it does not claim implementation, adoption, asset ownership or commercial outcomes on behalf of KOPUSAKA.
+
+## Responsible-use boundaries
+
+- All displayed assets, people, organisations, values, rental figures, leads and performance metrics must be treated as demonstration data unless verified against an authorised source.
+- A public prototype does not establish commissioning, endorsement, partnership or production use by KOPUSAKA or another organisation.
+- Financial indicators are management aids, not audited accounts, valuations, investment advice or legal determinations.
+- Referral eligibility and payments require an approved written policy, identity checks, anti-fraud controls, tax treatment and human authorisation.
+- Production handling of enquiries, identity information, tenancy records and payment data requires privacy notices, consent, role-based access, encryption, backups, retention rules and audit monitoring.
+- Public enquiry insertion must include abuse prevention, validation and rate limiting before operational launch.
+- Property status, health scores and automated priority flags must remain reviewable and correctable by authorised staff.
+
+## Current limitations
+
+- The live demonstration uses browser-local data rather than a shared production database.
+- Persona switching demonstrates navigation and workflows; it is not production authentication.
+- Supabase connection, storage, audit operations and organisational user provisioning remain implementation work.
+- Property imagery is generated demonstration artwork.
+- No verified integration with accounting, payment, tenancy-document, mapping or messaging systems is evidenced.
+- Automated tests, security testing, user acceptance and production monitoring are not evidenced in this repository.
+
+## Key routes
+
+| Area | Examples |
+|---|---|
+| Public marketplace | `/`, `/properties`, `/property/[slug]`, `/for-rent`, `/for-sale` |
+| Management | `/portal`, `/portal/properties`, `/portal/leads`, `/portal/rental`, `/portal/reports` |
+| Referrals | `/become-a-referrer`, `/r/[code]`, `/referrer` |
+
+## Run locally
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build && npm start
+npm run dev
 npm run typecheck
 ```
 
-Node 20+ recommended. Copy `.env.example` to `.env.local` to set the public site URL and
-WhatsApp number.
+## Portfolio evidence
 
----
-
-## Demo data
-
-The prototype ships with a coherent, realistic dataset:
-
-- **15 properties** across Kuching, Kota Samarahan, Sibu, Bintulu, Miri, Serian and Mukah —
-  6 occupied, 4 available for rent, 2 for sale, 2 under negotiation, 1 reserved
-- **20 leads** spread across all ten pipeline stages, with activity timelines
-- **5 referrers** (4 approved, 1 pending), with clicks, attributions and incentive records
-- **8 tenancies**, including expiries at 24, 52 and 58 days and one expired tenancy that
-  explains the portfolio's longest vacancy
-- **Rental ledger** for four periods with arrears, a partial payment and a late payment
-- **9 viewings, 4 offers, 8 campaigns, 6 users** across every role
-
-Dates are anchored to the day the app loads, so follow-ups due "today" really are due today
-and the demo never goes stale. Every change you make — new enquiries, stage moves, status
-updates, approvals — persists in the browser for the session. **Reset demo data** in the
-portal sidebar restores the seed.
-
----
-
-## Architecture
-
-```
-src/
-  app/
-    (site)/            public marketplace
-    portal/            management portal
-    referrer/          referral partner dashboard
-    r/[code]/          referral redirect + attribution cookie
-  components/
-    ui/                design-system primitives (button, card, badge, field, table, modal, stat)
-    public/            marketplace components
-    portal/            portal components
-    charts/            Recharts wrappers
-    property-image.tsx deterministic SVG property artwork
-  lib/
-    types.ts           domain model (mirrors the SQL schema)
-    data/              seeded demo dataset
-    dataset.ts         dataset assembly
-    store.tsx          client store — actions, persistence, role switching
-    metrics.ts         KPIs, health scoring, funnels, alerts, notifications
-    referral.ts        attribution capture
-supabase/schema.sql    PostgreSQL schema, views and row-level security
-```
-
-**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · Recharts · Lucide ·
-`qrcode.react`. Components in the style of shadcn/ui, hand-written so there is no
-generated-component sprawl.
-
-### Attaching Supabase
-
-No component reads storage directly — everything goes through the dataset and the store, so
-connecting Supabase is a data-source swap:
-
-1. Run `supabase/schema.sql` against your project.
-2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`.
-3. Replace the loaders in `src/lib/dataset.ts` with Supabase queries, and the mutations in
-   `src/lib/store.tsx` with inserts and updates. Types in `src/lib/types.ts` already match
-   the tables one-for-one.
-4. Move property images to Supabase Storage and swap `PropertyImage` for `next/image`.
-
-Row-level security policies for every role — including anonymous read of published listings
-and anonymous enquiry insert — are already written in the schema.
-
----
-
-## Design notes
-
-- **Palette:** near-white canvas, deep emerald accent, charcoal text, restrained gold —
-  chosen to suit board, GLC and senior government audiences.
-- **Typography:** Fraunces for display figures and headings, Inter for interface text.
-- **Imagery:** property artwork is generated as deterministic SVG per property, type and
-  view. It never 404s, loads instantly, and is replaced one-for-one with real photography
-  when it is uploaded.
-- **Property health:** every asset is scored green / amber / red from vacancy duration,
-  arrears, tenancy expiry, enquiry volume and marketing recency. Thresholds live in system
-  settings, not in code.
-- **Referral policy:** no commission rate is hard-coded anywhere. The incentive model is a
-  setting with four eligibility states — pending, approved, paid, rejected — so KO-PUSAKA can
-  determine policy later without a code change.
-
----
-
-*Every Asset Visible. Every Opportunity Actionable. Every Ringgit Accountable.*
+Asset360 demonstrates end-to-end service design, property-domain modelling, multi-role workflow architecture, analytics, referral attribution and responsible separation between a persuasive product demonstration and a production asset system.
